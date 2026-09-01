@@ -1,0 +1,9 @@
+{
+  "name": "Libreta",
+  "short_name": "Libreta",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#e7dfd2",
+  "theme_color": "#e7dfd2",
+  "description": "Notas con lápiz, letra convertida a fuente e imágenes arrastrables."
+}

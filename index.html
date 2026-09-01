@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#e7dfd2" />
+    <title>Libreta</title>
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,480;9..144,600&family=Source+Sans+3:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="toolbar" aria-label="Herramientas">
+        <div class="brand">
+          <span class="brand-mark">L</span>
+          <span class="brand-name">Libreta</span>
+        </div>
+
+        <div class="tool-group">
+          <button class="tool active" data-tool="pen" title="Lápiz">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l4.5-1.2L19 8.3a1.5 1.5 0 0 0 0-2.1l-1.2-1.2a1.5 1.5 0 0 0-2.1 0L5.2 15.5 4 20z" /></svg>
+            Lápiz
+          </button>
+          <button class="tool" data-tool="eraser" title="Borrar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 15.5 13 7l4 4-8.5 8.5H4.5v-4zM15 5l4 4" /></svg>
+            Borrar
+          </button>
+          <button class="tool" data-tool="select" title="Mover">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l12 8-6 .3 2.7 7.2-2.4.9L9.6 13 6 16V4z" /></svg>
+            Mover
+          </button>
+        </div>
+
+        <label class="field">
+          Color
+          <input type="color" id="inkColor" value="#1f2a24" />
+        </label>
+        <label class="field">
+          Grosor
+          <input type="range" id="inkSize" min="1" max="18" value="3" />
+        </label>
+        <label class="field">
+          Fuente
+          <select id="textFont">
+            <option value='"Fraunces", Georgia, serif'>Libreta (Fraunces)</option>
+            <option value="Georgia, serif">Georgia</option>
+            <option value='"Times New Roman", Times, serif'>Times</option>
+            <option value="system-ui, sans-serif">Sans</option>
+          </select>
+        </label>
+
+        <label class="toggle">
+          <input type="checkbox" id="autoConvert" checked />
+          Convertir letra sola
+        </label>
+        <label class="toggle">
+          <input type="checkbox" id="penOnly" checked />
+          Solo lápiz (ignorar palma)
+        </label>
+
+        <button type="button" class="primary" id="convertBtn">Convertir a fuente</button>
+        <button type="button" class="ghost" id="undoBtn">Deshacer</button>
+        <button type="button" class="ghost" id="clearInkBtn">Borrar tinta</button>
+        <button type="button" class="ghost" id="imagesBtn">Imágenes de Google</button>
+      </aside>
+
+      <main class="stage">
+        <header class="page-bar">
+          <input id="noteTitle" class="title" value="Nota nueva" maxlength="80" />
+          <p id="status" class="status">Escribe con el lápiz. Al soltar, se pasa a fuente.</p>
+        </header>
+        <div class="paper-wrap" id="paperWrap">
+          <div class="paper" id="paper">
+            <canvas id="ink"></canvas>
+            <div id="objects" class="objects"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <aside class="drawer" id="drawer" hidden>
+      <div class="drawer-head">
+        <h2>Imágenes de Google</h2>
+        <button type="button" class="icon-btn" id="closeDrawer" aria-label="Cerrar">×</button>
+      </div>
+      <form id="searchForm" class="search">
+        <input id="searchQuery" type="search" placeholder="Buscar fotos…" autocomplete="off" />
+        <button type="submit">Buscar</button>
+      </form>
+      <p class="hint">
+        Arrastra una foto a la hoja. También puedes abrir Google Imágenes y soltarla aquí, o pegar con Ctrl+V.
+      </p>
+      <div class="search-actions">
+        <button type="button" class="ghost" id="openGoogle">Abrir Google Imágenes</button>
+        <button type="button" class="ghost" id="pickFile">Subir archivo</button>
+      </div>
+      <input id="fileInput" type="file" accept="image/*" hidden />
+      <div id="results" class="results"></div>
+    </aside>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
